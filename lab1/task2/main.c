@@ -9,29 +9,20 @@ int main()
     int count, cur_n, res_n;
     int * simple = simple_numbers(&count);
     if (simple == NULL){
-        const char msg[] = "error: cant make list of primes";
-        fprintf(stderr, msg);
+        fprintf(stderr, "error: cant make list of primes\n");
         free(simple);
         exit(EXIT_FAILURE);
     }
     int len = read_number();
-    if (len == -1){
-        const char msg[] = "error: cant read from stdin";
-        fprintf(stderr, msg);
-        free(simple);
-        exit(EXIT_FAILURE);
-    }
-    else if (len < 1){
-        const char msg[] = "error: cant read from stdin";
-        fprintf(stderr, msg);
+    if (len < 1){
+        fprintf(stderr, "error: cant read from stdin\n");
         free(simple);
         exit(EXIT_FAILURE);
     }
     for (int i=0;i<len;i++){
         cur_n = read_number();
-        if (cur_n == -1){
-            const char msg[] = "error: cant read from stdin";
-            fprintf(stderr, msg);
+        if (cur_n < 1){
+            fprintf(stderr, "error: cant read from stdin\n");
             free(simple);
             exit(EXIT_FAILURE);
         }
