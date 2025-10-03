@@ -1,0 +1,3 @@
+/home/bogdanoff/study/FALGO/lab1/task6/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+/home/bogdanoff/study/FALGO/lab1/task6/build/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
+/home/bogdanoff/study/FALGO/lab1/task6/build/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir

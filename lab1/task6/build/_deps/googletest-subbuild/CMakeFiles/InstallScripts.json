@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/bogdanoff/study/FALGO/lab1/task6/build/_deps/googletest-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
