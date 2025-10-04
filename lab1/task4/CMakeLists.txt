@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(lab1_task2)
+project(lab1_task4)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -20,7 +20,7 @@ FetchContent_Declare(
 add_library(${CMAKE_PROJECT_NAME}_lib src/func.c)
 add_executable(${CMAKE_PROJECT_NAME}_exe main.c)
 
-target_link_libraries(${CMAKE_PROJECT_NAME}_exe PRIVATE ${CMAKE_PROJECT_NAME}_lib)
+target_link_libraries(${CMAKE_PROJECT_NAME}_exe PRIVATE ${CMAKE_PROJECT_NAME}_lib m)
 
 
 enable_testing()
