@@ -5,11 +5,18 @@
 int main(int argc, char **argv){
     if (argc != 2){
         fprintf(stderr, "error: invalid input\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     
     double epsilon = atof(argv[1]);
-    
+    if (epsilon<0){
+        fprintf(stderr, "error: invalid epsilon\n");
+        return -1;
+    }
+    if (epsilon< 0.00000001){
+        fprintf(stderr, "so small eps (max = 0.00000001)\n");
+        return -1;
+    }
     fprintf(stdout, "e:\n");
     double e_a = calculate_e_a(epsilon);
     double e_b = calculate_e_b(epsilon);

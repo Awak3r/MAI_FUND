@@ -9,18 +9,18 @@ int main(int argc, char **argv)
 {
     if (argc!=3){
         fprintf(stderr, "error: incorect number of arguments\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     const int x = atoi(argv[1]);
     size_t length = strlen(argv[2]);
     if (argv[2][0] != '-' && argv[2][0] != '/'){
         fprintf(stderr, "error: wrong flag's format\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     const char flag= argv[2][1];
     if (flag != 'h' && flag != 'p' && flag != 's' && flag != 'e' && flag != 'a' && flag != 'f'){
         fprintf(stderr, "error: wrong flag\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     int result1;
     int * result2, len;
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
             result2 = func_c(x, &len);
             if (result2 == NULL){
                 fprintf(stderr, "error: cant add memory\n");
-                exit(EXIT_FAILURE);
+                return -1;
             }
             while(i!=len){
                     fprintf(stdout, "%d ", result2[len - i - 1]);
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
         case 'e':
                 if (x>10 || x<1){
                     fprintf(stderr, "a less than 10 required\n");
-                    exit(EXIT_FAILURE);
+                    return -1;
                 }
                 else {
                     func_d(x);
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
             result1 = func_e(x);
             if (result1 == -1){
                 fprintf(stderr, "error: cant be counted\n");
-                exit(EXIT_FAILURE);
+                return -1;
             }
             fprintf(stdout, "%d\n", result1);
         break;
@@ -85,7 +85,7 @@ int main(int argc, char **argv)
             result3 = func_f(x);
             if (result3 == -1){   
                 fprintf(stderr, "error: cant be counted\n");
-                exit(EXIT_FAILURE);
+                return -1;
             }
             fprintf(stdout, "%lld\n", result3);
         break;

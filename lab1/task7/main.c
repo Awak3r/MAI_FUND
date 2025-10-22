@@ -7,13 +7,13 @@ int main(int argc, char ** argv)
 {
     if (argc != 3){
         fprintf(stderr, "error: invalid arguments\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     FILE * file_in = fopen(argv[1], "r");
     FILE * file_out = fopen(argv[2],"w");
     if (!file_in || !file_out){
         fprintf(stderr, "error: can't open the file\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     char string[1024];
     int len=0, result;
@@ -27,7 +27,7 @@ int main(int argc, char ** argv)
                     fprintf(stderr, "error: file contains wrong symbols\n");
                     fclose(file_in);
                     fclose(file_out);
-                    exit(EXIT_FAILURE);
+                    return -1;
                 }
                 else{
                     fprintf(file_out, "%d\n", result);
@@ -44,7 +44,7 @@ int main(int argc, char ** argv)
                 fprintf(stderr, "error: file contains wrong symbols\n");
                 fclose(file_in);
                 fclose(file_out);
-                exit(EXIT_FAILURE);
+                return -1;
             }
             else{
                 fprintf(file_out, "%d\n", result);

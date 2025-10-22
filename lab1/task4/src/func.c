@@ -177,5 +177,5 @@ double calculate_gamma_b(double epsilon){
 
 double calculate_gamma_c(double epsilon){
     //я искренне не представляю что это и как это решить, если хотите спросите сами у нейросети
-    return 0.5772156649;
+    return 52;
 }

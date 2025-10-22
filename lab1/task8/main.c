@@ -11,7 +11,7 @@ int main(int argc, char ** argv)
     int n = atoi(chisl);
     if (n>36 || n<2 ){
         fprintf(stderr,"error: wrong base\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     char string[1024];
     long number;
@@ -19,7 +19,7 @@ int main(int argc, char ** argv)
     while (strcmp(fgets(string, sizeof(chisl), stdin), "Stop\n") != 0) {\
         if(!test_in(string, n)){
             fprintf(stderr, "error: invalid number\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         number = in_to_10number(string, n);
         if (labs(number) > labs(max_number)){

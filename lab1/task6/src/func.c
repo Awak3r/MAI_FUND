@@ -1,58 +1,70 @@
 #include "../include/func.h"
 #include <math.h>
+#include <sys/types.h>
 
 
-double func_a(double x, double epsilon){
+
+
+double func(double x, double epsilon,char var){
+    
+    switch (var) {
+    case('a'): {
     //ln(1+x)/x
     if (fabs(x)<epsilon){
         return 1;
     }
-    return (log(x+1)/x);
-}
-
-double func_b(double x, double epsilon){
+    return (log(x+1)/x); }
+    case('b'): {
     //e^(-x^/2)
-    return exp((-x*x)/2);
-}
-double func_c(double x, double epsilon){
+    return exp((-x*x)/2); }
+    case('c'): {
     //ln(1/(1-x))
     if (fabs(1.0 - x) < epsilon){
         return log(1/(1-x+epsilon));
     }
-    return -log(1-x);
-}
-
-double  func_d(double x, double epsilon){
+    return -log(1-x); }
+    case('d'): {
+    //x^x
     if (fabs(x) < epsilon){
         return 1;
     }
     return pow(x, x);
+    }
+    default: return -1;
+}
 }
 
-double integral(double epsilon, char var){
-    double a = 0, b = 1;
-    int n = 1;
-    double h = b - a;
-    double integral_old;
-    double integral_new;
-    if (var == 'a') integral_old = (func_a(a, epsilon) + func_a(b, epsilon)) * h / 2;
-    if (var == 'b') integral_old = (func_b(a, epsilon) + func_b(b, epsilon)) * h / 2;
-    if (var == 'c') integral_old = (func_c(a, epsilon) + func_c(b, epsilon)) * h / 2;
-    if (var == 'd') integral_old = (func_d(a, epsilon) + func_d(b, epsilon)) * h / 2;
-    for (int i = 1; i<10000; i++){
-        n*=2;
-        h/=2;
-        integral_new = integral_old / 2;
-        for (int k = 1; k<n; k+=2){
-            if (var == 'a') integral_new += func_a(a + (k*h), epsilon) * h;
-            if (var == 'b') integral_new += func_b(a + (k*h), epsilon) * h;
-            if (var == 'c') integral_new += func_c(a + (k*h), epsilon) * h;
-            if (var == 'd') integral_new += func_d(a + (k*h), epsilon) * h;
-        }
-        if (fabs(integral_new - integral_old) < epsilon){
-            return integral_new;
-        }
-        integral_old = integral_new;
+int n_for_epsilon(double epsilon, char var){
+    double E;
+    int n = 2;
+    double second_p;
+    switch (var) {
+        case('a'): second_p = 198.88;
+        break;
+        case('b'): second_p = 1;
+        break;
+        case('c'): second_p = 198.38;
+        break;
+        case('d'): second_p = 9.29;
+        break;
     }
-    return integral_new;
+    while (1) {
+        E=1.0/(12*pow(n, 2))*second_p;
+        if(E<=epsilon){
+            return n;
+        }
+        n*=2;
+    }
+}
+
+
+
+double integral(double epsilon, char var){
+    int n = n_for_epsilon(epsilon, var);
+    double I = 0, h = 1.0/n;
+    for (double i=0; i<1; i+=h) {
+    I+=h/2*(func(i,epsilon, var) + func(i+h,epsilon, var));
+    }
+    return I;
+
 }

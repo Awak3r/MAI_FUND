@@ -9,11 +9,11 @@ int main(int argc, char **argv)
 {
     if (argc <2){
         fprintf(stderr, "error: incorect arguments\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     if ((argv[1][0] != '-' && argv[1][0] != '/') && (argv[1][1] != 'q' && argv[1][1] != 'm' && argv[1][1] != 't')){
         fprintf(stderr, "error: incorect arguments\n");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     char flag = argv[1][1];
     int result1;
@@ -24,11 +24,11 @@ int main(int argc, char **argv)
     case 'q':
         if (argc != 6){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         if (!(is_number(argv[2]) && is_number(argv[3]) && is_number(argv[4]) && is_number(argv[5]))){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         epsilon = atof(argv[2]);
         coef[0] = atof(argv[3]);
@@ -39,17 +39,17 @@ int main(int argc, char **argv)
     case 'm':
         if (argc != 4){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         if (!(is_number(argv[2]) && is_number(argv[3]))){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         const int x1 = atof(argv[2]);
         const int x2 = atof(argv[3]);
         if ((int)x1 != x1 || (int)x2 != x2){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         result1 = func_b((int)x1, (int)x2);
         if (result1 == 1){
@@ -62,11 +62,11 @@ int main(int argc, char **argv)
     case 't':
         if (argc != 6){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         if (!(is_number(argv[2]) && is_number(argv[3]) && is_number(argv[4]) && is_number(argv[5]))){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         epsilon = atof(argv[2]);
         coef[0] = atof(argv[3]);
@@ -74,7 +74,7 @@ int main(int argc, char **argv)
         coef[2] = atof(argv[5]);
         if(coef[0]< 0 ||  coef[1] < 0 || coef[2] < 0){
             fprintf(stderr, "error: incorect arguments\n");
-            exit(EXIT_FAILURE);
+            return -1;
         }
         result1 = func_c(epsilon, coef);
         if (result1 == 1){
