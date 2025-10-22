@@ -1,1 +1,0 @@
-/usr/bin/cc  -Werror=maybe-uninitialized -Wl,--dependency-file=CMakeFiles/lab1_task2_exe.dir/link.d CMakeFiles/lab1_task2_exe.dir/main.c.o -o lab1_task2_exe  liblab1_task2_lib.a
