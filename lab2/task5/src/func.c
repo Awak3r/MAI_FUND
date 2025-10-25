@@ -5,11 +5,12 @@
 #include <string.h>
 #include <sys/types.h>
 
-void norm_string(char string[]){
-    char sss[1024];
+void norm_string(char *string){
+    size_t len = strlen(string);
+    char * sss = malloc(len+1);
     int k = 0;
     int flag = 1;
-    for(ssize_t i =0; string[i]!='\0' && string[i]!='\n'; i++){
+    for(size_t i =0; string[i]!='\0' && string[i]!='\n'; i++){
         if (!(string[i] == '\t' || string[i] == ' ')){
             flag = 0;
             sss[i-k] = string[i];
@@ -24,69 +25,62 @@ void norm_string(char string[]){
             }
         }
     }
-    if (sss[strlen(string)-k-1] == ' ' || sss[strlen(string)-k-1] == '\t') k++;
-    sss[strlen(string)-k] = '\0';
+    if (sss[len-k-1] == ' ' || sss[len-k-1] == '\t') k++;
+    sss[len-k] = '\0';
     strcpy(string, sss);
+    free(sss);
 }
 
 char * obrez(char * string){
-    char *castrt = malloc(sizeof(char)*1024);
-    char *buf = malloc(sizeof(char)*1024);
+    size_t len =strlen(string);
+    char *castrt = malloc(len + 1);
+    char *buf = malloc(len + 1);
     int i = 79;
-    if (strlen(string)<=80) {
+    if (len <= 80) {
         strcpy(castrt, string);
+        i = len -1;
+        while(castrt[i] ==' ') castrt[i] = '\0';
         string[0] = '\0';
+        free(buf);
         return castrt;
     }
     if (string[i+1] ==' ' && string[i]!=' '){
-        strncpy(castrt, string,80);
-        i+=1;
+        i++;
     }
     else{
     while (string[i] != ' ' && i != 0){
-        i-=1;
+        i--;
     }
     if (i == 0){
         i = 79;
-        while (string[i] != ' ' && i != (strlen(string))) {
-            i+=1;
+        while (string[i] != ' ' && i != len) {
+            i++;
         }
-        strncpy(castrt, string,i);
-    }
-    else{
-        strncpy(castrt, string, i);
     }
     }
+    strncpy(castrt, string, i);
     castrt[i] = '\0';
     int k = 0;
     while (string[i]!='\0') {
-       buf[k++] = string[i];
-       i++;
+       buf[k++] = string[i++];
     }
-    memset(string, '\0', strlen(string));
+    memset(string, '\0', len); 
     buf[k] = '\0';
-    k=0;
-    int ff =0, ffk = 0;
-    while (buf[k]!='\0') {
-        if (ff == 0 && buf[k] ==' ') {
-            ffk+=1;
-        }
-        else if (ff == 0 && buf[k] !=' ') {
-            ff = 1;
-            string[k-ffk] = buf[k];
-        }
-        else{
-        string[k-ffk] = buf[k];
-        }
-        k++; 
+    if (buf[0] ==' ') k = 1;
+    else k = 0;
+    i = 0;
+    while (buf[k]!= '\0') {
+        string[i++] = buf[k++];
     }
     string[k] = '\0';
     free(buf);
     return castrt;
 }
+
 char* sdvig(char *string, int k) {
     int len = strlen(string);
     char *sstring = realloc(string, len + 2);
+    if (string == NULL) return NULL;
     if (sstring == NULL) return string;
     for (int i = len; i > k; i--) {
         sstring[i + 1] = sstring[i];
@@ -97,7 +91,7 @@ char* sdvig(char *string, int k) {
 }
 char *  add_probel(char* string){
     int i = 0;
-    if (!memchr(string, ' ', sizeof(string))){
+    if (!memchr(string, ' ', strlen(string))){
         while (strlen(string)< 80) {
             string[strlen(string)] = ' ';
         }
