@@ -20,27 +20,26 @@ int * simple_numbers(int * simple_len)
     int max_n = 1000000, n=0, j;
     char* numbers = (char*)malloc(max_n * sizeof(char));
     int*simple = (int*)malloc(sizeof(int)*max_n);
+    if (!numbers || !simple) {
+        free(numbers);
+        free(simple);
+        *simple_len = 0;
+        return NULL;
+    }
     memset(numbers, 1, max_n);
     numbers[0] = 0, numbers[1] = 0;
-    for (int i = 2; i<max_n; i++){
-        if (numbers[i]){
-            simple[n++]=i;
-            j = i * i;
-            while(j<max_n){
-                numbers[j] = 0;
-                j+=i;
-            }
-        }
-    } 
     for (int i = 2; i < max_n; i++) {
-        if (numbers[i] && i*i >= max_n){  
+        if (numbers[i]) {
             simple[n++] = i;
+            for (int j = i+i; j < max_n; j += i)
+                numbers[j] = 0;
         }
     }
     free(numbers);
     *simple_len = n;
     return simple;
 }
+
 
 int task2(int * simple, int n) {
     return simple[n-1];
