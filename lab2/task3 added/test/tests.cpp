@@ -249,7 +249,7 @@ TEST_F(CustomPrintfTest, Fibonach_GeneratesSequence) {
     unsigned int* fib = fibonach(&len);
     EXPECT_GT(len, 0);
     EXPECT_EQ(fib[0], 1);
-    EXPECT_EQ(fib[1], 2);
+    EXPECT_EQ(fib[1], 1);
     free(fib);
 }
 
