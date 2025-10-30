@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblab2_task6_lib.a CMakeFiles/lab2_task6_lib.dir/src/func.c.o
-/usr/bin/ranlib liblab2_task6_lib.a
