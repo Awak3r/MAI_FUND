@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdarg.h>
 //https://habr.com/ru/articles/444550/
-unsigned int minus(unsigned int a, unsigned int b){
+unsigned int difference(unsigned int a, unsigned int b){
     while (b != 0) {
         unsigned int bor = ~a&b;
         a= a^b;
@@ -13,7 +13,7 @@ unsigned int minus(unsigned int a, unsigned int b){
     return a;
 }
 
-unsigned int plus_1(unsigned int a) {
+unsigned int add_1(unsigned int a) {
     unsigned int carry = 1;
     while (carry != 0) {
         unsigned int temp_carry = a & carry; 
@@ -44,7 +44,7 @@ unsigned int del(unsigned int a, unsigned int b, unsigned int * ostatok){
     }
     while (b_cur >= b) {
         if (a_cur>=b_cur){
-            a_cur = minus(a_cur, b_cur);
+            a_cur = difference(a_cur, b_cur);
             res = res<<1 | 1;
         } else{
             res = res<<1;
@@ -87,23 +87,23 @@ char * func(int num, int base){
     int flag = 0;
     if (num < 0){
         flag = 1;
-        num = plus_1(~num);
+        num = add_1(~num);
     }
     int i = 0, k = 0;
     while (num>0) {
         num = del(num, base, &ostatok);
         res1[i] = digits[ostatok]; 
-        i = plus_1(i);
+        i = add_1(i);
     }
     if (flag == 1) {
         res1[i] = '-';
-        i = plus_1(i);
+        i = add_1(i);
     }
-    i = minus(i, 1);
+    i = difference(i, 1);
     while (i>=0) {
         res2[k] = res1[i];
-        k = plus_1(k);
-        i = minus(i, 1);
+        k = add_1(k);
+        i = difference(i, 1);
     }
     res2[k] = '\0';
     free(res1);

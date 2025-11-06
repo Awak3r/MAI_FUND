@@ -1,0 +1,31 @@
+15 Lebedeva Irina 115 3.200000
+Ivanov Ivan
+Sidorova Maria
+Kuznetsova Anna
+Vasiliev Sergey
+Sokolova Elena
+Novikova Olga
+Morozova Natalia
+Alekseev Mikhail
+Egorova Tatiana
+Kozlova Svetlana
+Stepanov Maxim
+Orlov Roman
+Andreeva Ekaterina
+Nikitina Daria
+Zaitseva Anastasia
+Borisova Vera
+Grigoriev Oleg
+Romanova Galina
+Sergeeva Ludmila
+Kovalev Yuri
+Vinogradova Polina
+Belyaeva Kristina
+Sorokin Viktor
+Frolov Ruslan
+Timofeeva Veronika
+Guseva Marina
+Ermakova Karina
+Loginova Elizaveta
+16 Semenov Vladimir 116 1.000000
+16 Semenov Vladimirr 116 1.000000

@@ -243,7 +243,8 @@ unsigned int * fibonach(int * len){
     unsigned int f1 = 1, f2 = 1, k;
     unsigned int * sss = malloc(sizeof(unsigned int)* 100);
     if (!sss) return NULL;
-    sss[0] = 1, sss[1] = 1;
+    sss[0] = 1;
+    sss[1] = 1;
     size_t i;
     for(i = 2; i<100; i++){
         if ((f1+f2) < f1 || (f1+f2) < f2){

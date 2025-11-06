@@ -1,4 +1,5 @@
 #include "../include/func.h"
+#include <linux/limits.h>
 #include <math.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -6,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <limits.h>
 
 char* read_sss(FILE *stream){
     int cap = 128, len = 0, c;
@@ -36,11 +38,11 @@ char* read_sss(FILE *stream){
 
 unsigned int * fibonach(int * len){
     unsigned int f1 = 1, f2 = 1, k;
-    unsigned int * sss = malloc(sizeof(unsigned int)* 100);
+    unsigned int * sss = (unsigned int* ) malloc(sizeof(unsigned int)* 100);
     if (!sss) return NULL;
-    sss[0] = 1, sss[1] = 1;
+    sss[0] = 1;
     size_t i;
-    for(i = 2; i<100; i++){
+    for(i = 1; i<100; i++){
         if ((f1+f2) < f1 || (f1+f2) < f2){
             break;
         }
@@ -59,9 +61,10 @@ unsigned int * fibonach(int * len){
 
 int  func_a(char * num){ 
     //IVXLCDM
+    if (!num || !*num) return -1;
     int res = 0, i = 0;
     int len = strlen(num);
-    if (num[0] == '-') i = 1;
+    if (num[0] == '-') return -1;;
     while(i != len){
         switch (num[i]){
         case 'I':{
@@ -119,20 +122,29 @@ int  func_a(char * num){
         default: return -1;
         }
     }
+    if (res>4000){
+        return -1;
+    }
     return res;
 }
 
 unsigned int func_b(char* num){
+    if (!num || strlen(num)< 2) return 0;
+    int len = strlen(num);
+    for(int i = 0; i<len; i++){
+        if (num[i] != '1' && num[i] !='0') return 0;
+    }
     unsigned int res = 0;
     int len_fib; 
     int i = 0, k = 0;
     unsigned int * fib = fibonach(&len_fib);
-    if (!fib) return -1;
+    if (!fib) return 0;
     while(i<len_fib && num[k+1] !='\0'){
         if (num[k] == '1'){
             res+=fib[i];
+            i++;
         }
-        i+=2;
+        i++;
         k++;
     }
     free(fib);
@@ -140,35 +152,43 @@ unsigned int func_b(char* num){
 }
 
 int func_c(char * num, int base){
-    int res = 0;
+    if (!num || !*num) return -1;
+    long long res = 0;
     int len = strlen(num);
+    long long test;
     char * digits = "0123456789abcdefghijklmnopqrstuvwxyz";
     char *index;
     int ind;
     if (base < 2 || base > 36) base = 10;
     int i;
     for(i = 0; i<len; i++){
-        if (num[i] >='A' && num[i] <='Z') return -1;
         index = memchr(digits, num[i], strlen(digits));
         if (index == NULL)return -1;
         ind = index - digits;
         if (ind>=base) return -1;
-        res+=ind* pow(base, len -i -1);
+        test = ind* pow(base, len -i -1);
+        if ((res + test)>INT_MAX) return -1;
+        res+=test;
     }
-    return res;
+    return (int)res;
 }
 
 int func_d(char * num, int base){
+    if (!num || !*num) return -1;
+    int len = strlen(num);
     char * num1 = malloc(sizeof(char)*(strlen(num)+10));
     if (!num1) return -1;
-    for(int i = 0; i<strlen(num); i++){
-        if (num[i] >='a' && num[i] <='z'){
+    for(int i = 0; i<len; i++){
+        if (num[i] >= 'A' && num[i] <= 'Z'){
+            num1[i] = tolower(num[i]);
+        } else if (num[i] >= '0' && num[i] <= '9'){
+            num1[i] = num[i];
+        } else {
             free(num1);
             return -1;
-        }
-        num1[i] = tolower(num[i]);
     }
-    num1[strlen(num)] = '\0';
+    }
+    num1[len] = '\0';
     int res = func_c(num1, base);
     free(num1);
     return res;
@@ -188,6 +208,7 @@ int oversscanf(const char *str, const char *format, ...){
                 if (sscanf(&str[pos], "%s", v) == 1){
                     pos+= strlen(v);
                     *res = func_a(v);
+                    if (*res == -1) return -1;
                     count++;
                 }
                 free(v);
@@ -201,6 +222,7 @@ int oversscanf(const char *str, const char *format, ...){
                 if (sscanf(&str[pos], "%s", v) == 1){
                     pos+= strlen(v);
                     *res = func_b(v);
+                    if (* res == 0) return -1;
                     count++;
                 }
                 free(v);
@@ -215,6 +237,7 @@ int oversscanf(const char *str, const char *format, ...){
                 if (sscanf(&str[pos], "%s", v) == 1){
                     pos+= strlen(v);
                     *res = func_c(v, base);
+                    if (*res == -1) return -1;
                     count++;
                 }
                 free(v);
@@ -229,6 +252,7 @@ int oversscanf(const char *str, const char *format, ...){
                 if (sscanf(&str[pos], "%s", v) == 1){
                     pos+= strlen(v);
                     *res = func_d(v, base);
+                    if (*res == -1) return -1;
                     count++;
                 }
                 free(v);
@@ -355,6 +379,7 @@ int overfscanf(FILE *stream, const char *format, ...){
                 char * v = read_sss(stream);
                 if (v){
                     *res = func_a(v);
+                    if (*res == -1) return -1;
                     count++;
                     free(v);
                 }
@@ -366,6 +391,7 @@ int overfscanf(FILE *stream, const char *format, ...){
                 char * v = read_sss(stream);
                 if (v){
                     *res = func_b(v);
+                    if (*res == 0) return -1;
                     count++;
                     free(v);
                 }
@@ -378,6 +404,7 @@ int overfscanf(FILE *stream, const char *format, ...){
                 char * v = read_sss(stream);
                 if (v){
                     *res = func_c(v, base);
+                    if (*res == -1) return -1;
                     count++;
                     free(v);
                 }
@@ -390,6 +417,7 @@ int overfscanf(FILE *stream, const char *format, ...){
                 char * v = read_sss(stream);
                 if (v){
                     *res = func_d(v, base);
+                    if (*res == -1) return -1;
                     count++;
                     free(v);
                 }
