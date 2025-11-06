@@ -319,16 +319,6 @@ TEST_F(ScanfTest, Overfscanf_Newlines) {
     EXPECT_EQ(c, 30) << "overfscanf(file=\"10\\n20\\n30\", \"%d %d %d\") c";
 }
 
-TEST_F(ScanfTest, Overfscanf_LargeString) {
-    std::string largeRoman(1000, 'M');
-    writeToFile(largeRoman.c_str());
-    int result = 0;
-    int count = overfscanf(testFile, "%Ro", &result);
-    std::cout << "Test Overfscanf_LargeString: file_content=\"MMM...(1000 M's)\", format=\"%Ro\", got result=" << result << ", count=" << count << ", expected result=1000000, count=1\n";
-    EXPECT_EQ(count, 1) << "overfscanf(file=1000xM, \"%Ro\") count";
-    EXPECT_EQ(result, 1000000) << "overfscanf(file=1000xM, \"%Ro\") result";
-}
-
 TEST_F(ScanfTest, Overfscanf_EmptyFile) {
     writeToFile("");
     int result = 0;

@@ -3,7 +3,6 @@
 
 CMakeFiles/lab2_task4_exe.dir/main.c.o: /home/bogdanoff/study/FALGO/lab2/task4added/main.c \
   /home/bogdanoff/study/FALGO/lab2/task4added/include/func.h \
-  /usr/include/assert.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/libc-header-start.h \
@@ -16,10 +15,8 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o: /home/bogdanoff/study/FALGO/lab2/task4ad
   /usr/include/bits/types/__FILE.h \
   /usr/include/bits/types/__fpos64_t.h \
   /usr/include/bits/types/__fpos_t.h \
-  /usr/include/bits/types/__locale_t.h \
   /usr/include/bits/types/__mbstate_t.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
-  /usr/include/bits/types/locale_t.h \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/typesizes.h \
   /usr/include/bits/wordsize.h \
@@ -29,8 +26,6 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o: /home/bogdanoff/study/FALGO/lab2/task4ad
   /usr/include/gnu/stubs.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdio.h \
-  /usr/include/string.h \
-  /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h
@@ -70,6 +65,8 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o:
 
 /usr/lib/libm.so:
 
+/usr/lib/libgcc_s.so.1:
+
 /usr/lib/libgcc_s.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
@@ -78,17 +75,7 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o:
 
 /usr/lib/crti.o:
 
-/usr/lib/Scrt1.o:
-
-/usr/lib/libmvec.so.1:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
-
 /usr/include/bits/types.h:
-
-/usr/include/bits/types/__locale_t.h:
 
 /usr/lib/libc.so:
 
@@ -98,6 +85,8 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o:
 
 /usr/include/gnu/stubs-64.h:
 
+/usr/include/bits/time64.h:
+
 /usr/include/bits/floatn.h:
 
 /usr/include/bits/types/__mbstate_t.h:
@@ -106,19 +95,11 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o:
 
 /usr/include/bits/floatn-common.h:
 
-/usr/include/bits/time64.h:
-
-/usr/include/bits/types/locale_t.h:
-
-/usr/lib/libgcc_s.so.1:
-
-/usr/include/assert.h:
-
 /usr/include/bits/stdio_lim.h:
 
-/usr/include/strings.h:
-
 /usr/include/bits/libc-header-start.h:
+
+/usr/lib/Scrt1.o:
 
 /home/bogdanoff/study/FALGO/lab2/task4added/main.c:
 
@@ -130,26 +111,30 @@ CMakeFiles/lab2_task4_exe.dir/main.c.o:
 
 /usr/include/features-time64.h:
 
-/usr/include/bits/types/struct_FILE.h:
-
-/usr/include/features.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h:
-
-/usr/include/gnu/stubs.h:
-
-/usr/include/stdio.h:
-
-/usr/include/sys/cdefs.h:
-
-/usr/include/bits/timesize.h:
-
-/usr/include/stdc-predef.h:
-
 /usr/include/bits/typesizes.h:
 
 /home/bogdanoff/study/FALGO/lab2/task4added/include/func.h:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
 
-/usr/include/string.h:
+/usr/include/bits/types/struct_FILE.h:
+
+/usr/include/features.h:
+
+/usr/include/stdio.h:
+
+/usr/include/bits/timesize.h:
+
+/usr/include/stdc-predef.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h:
+
+/usr/lib/libmvec.so.1:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
