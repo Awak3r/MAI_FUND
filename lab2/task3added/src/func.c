@@ -373,8 +373,8 @@ int oversprintf(char *str, const char *format, ...) {
                 continue;
             }
             if (strncmp(&format[i], "%mf", 3) == 0) {
-                float V = va_arg(args, double);
-                char * v = func_j(V);
+                double V = va_arg(args, double);
+                char * v = func_j((float)V);
                 if (v) {
                     pos+=snprintf(buf + pos, buf_size - pos, "%s", v);
                     free(v);
@@ -558,8 +558,8 @@ int overfprintf(FILE *stream, const char *format, ...) {
                 continue;
             }
             if (strncmp(&format[i], "%mf", 3) == 0) {
-                float V = va_arg(args, double);
-                char * v = func_j(V);
+                double V = va_arg(args, double);
+                char * v = func_j((float)V);
                 if (v) {
                     pos+=snprintf(buf + pos, buf_size - pos, "%s", v);
                     free(v);

@@ -2,7 +2,6 @@
 #include <cstdio>
 #include <climits>
 #include <iostream>
-#include <string>
 extern "C" {
 #include "../include/func.h"
 }
