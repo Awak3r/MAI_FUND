@@ -3,7 +3,9 @@ extern "C" {
     #include "../include/func.h"
 }
 
+
 // ============= ТЕСТЫ ДЛЯ ПРОСТЫХ ТИПОВ (int) =============
+
 
 class VectorSimpleTest : public ::testing::Test {
 protected:
@@ -11,6 +13,7 @@ protected:
         // Используйте простые функции для int
     }
 };
+
 
 TEST_F(VectorSimpleTest, CreateVector_EmptyCapacity) {
     Vector v = create_vector(0, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -20,6 +23,7 @@ TEST_F(VectorSimpleTest, CreateVector_EmptyCapacity) {
     erase_vector(&v);
 }
 
+
 TEST_F(VectorSimpleTest, CreateVector_WithCapacity) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
     EXPECT_EQ(v.size, 0);
@@ -28,6 +32,7 @@ TEST_F(VectorSimpleTest, CreateVector_WithCapacity) {
     erase_vector(&v);
 }
 
+
 TEST_F(VectorSimpleTest, PushBack_SingleElement) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
     
@@ -35,9 +40,14 @@ TEST_F(VectorSimpleTest, PushBack_SingleElement) {
     push_back_vector(&v, val);
     
     EXPECT_EQ(v.size, 1);
-    EXPECT_EQ(get_at_vector(&v, 0), 42);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_EQ(result, 42);
+    
     erase_vector(&v);
 }
+
 
 TEST_F(VectorSimpleTest, PushBack_MultipleElements) {
     Vector v = create_vector(2, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -48,11 +58,18 @@ TEST_F(VectorSimpleTest, PushBack_MultipleElements) {
     
     EXPECT_EQ(v.size, 3);
     EXPECT_GE(v.capacity, 3);
-    EXPECT_EQ(get_at_vector(&v, 0), 10);
-    EXPECT_EQ(get_at_vector(&v, 1), 20);
-    EXPECT_EQ(get_at_vector(&v, 2), 30);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_EQ(result, 10);
+    EXPECT_EQ(get_at_vector(&v, 1, &result), 0);
+    EXPECT_EQ(result, 20);
+    EXPECT_EQ(get_at_vector(&v, 2, &result), 0);
+    EXPECT_EQ(result, 30);
+    
     erase_vector(&v);
 }
+
 
 TEST_F(VectorSimpleTest, PushBack_Reallocation) {
     Vector v = create_vector(0, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -62,11 +79,16 @@ TEST_F(VectorSimpleTest, PushBack_Reallocation) {
     }
     
     EXPECT_EQ(v.size, 10);
+    
+    VECTOR_TYPE result;
     for (int i = 0; i < 10; i++) {
-        EXPECT_EQ(get_at_vector(&v, i), i) << "Element at index " << i;
+        EXPECT_EQ(get_at_vector(&v, i, &result), 0) << "Failed to get element at index " << i;
+        EXPECT_EQ(result, i) << "Element at index " << i;
     }
+    
     erase_vector(&v);
 }
+
 
 TEST_F(VectorSimpleTest, DeleteAt_MiddleElement) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -79,11 +101,18 @@ TEST_F(VectorSimpleTest, DeleteAt_MiddleElement) {
     delete_at_vector(&v, 1);
     
     EXPECT_EQ(v.size, 3);
-    EXPECT_EQ(get_at_vector(&v, 0), 10);
-    EXPECT_EQ(get_at_vector(&v, 1), 30);
-    EXPECT_EQ(get_at_vector(&v, 2), 40);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_EQ(result, 10);
+    EXPECT_EQ(get_at_vector(&v, 1, &result), 0);
+    EXPECT_EQ(result, 30);
+    EXPECT_EQ(get_at_vector(&v, 2, &result), 0);
+    EXPECT_EQ(result, 40);
+    
     erase_vector(&v);
 }
+
 
 TEST_F(VectorSimpleTest, DeleteAt_FirstElement) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -95,10 +124,16 @@ TEST_F(VectorSimpleTest, DeleteAt_FirstElement) {
     delete_at_vector(&v, 0);
     
     EXPECT_EQ(v.size, 2);
-    EXPECT_EQ(get_at_vector(&v, 0), 20);
-    EXPECT_EQ(get_at_vector(&v, 1), 30);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_EQ(result, 20);
+    EXPECT_EQ(get_at_vector(&v, 1, &result), 0);
+    EXPECT_EQ(result, 30);
+    
     erase_vector(&v);
 }
+
 
 TEST_F(VectorSimpleTest, DeleteAt_LastElement) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -110,10 +145,16 @@ TEST_F(VectorSimpleTest, DeleteAt_LastElement) {
     delete_at_vector(&v, 2);
     
     EXPECT_EQ(v.size, 2);
-    EXPECT_EQ(get_at_vector(&v, 0), 10);
-    EXPECT_EQ(get_at_vector(&v, 1), 20);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_EQ(result, 10);
+    EXPECT_EQ(get_at_vector(&v, 1, &result), 0);
+    EXPECT_EQ(result, 20);
+    
     erase_vector(&v);
 }
+
 
 TEST_F(VectorSimpleTest, EraseVector_ClearsData) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -127,6 +168,7 @@ TEST_F(VectorSimpleTest, EraseVector_ClearsData) {
     EXPECT_EQ(v.capacity, 0);
     EXPECT_EQ(v.data, nullptr);
 }
+
 
 TEST_F(VectorSimpleTest, IsEqualVector_EqualVectors) {
     Vector v1 = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -146,6 +188,7 @@ TEST_F(VectorSimpleTest, IsEqualVector_EqualVectors) {
     erase_vector(&v2);
 }
 
+
 TEST_F(VectorSimpleTest, IsEqualVector_DifferentSizes) {
     Vector v1 = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
     Vector v2 = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -160,6 +203,7 @@ TEST_F(VectorSimpleTest, IsEqualVector_DifferentSizes) {
     erase_vector(&v1);
     erase_vector(&v2);
 }
+
 
 TEST_F(VectorSimpleTest, IsEqualVector_DifferentElements) {
     Vector v1 = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -177,6 +221,7 @@ TEST_F(VectorSimpleTest, IsEqualVector_DifferentElements) {
     erase_vector(&v2);
 }
 
+
 TEST_F(VectorSimpleTest, CopyVector_ExistingVector) {
     Vector src = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
     Vector dest = create_vector(3, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -191,13 +236,19 @@ TEST_F(VectorSimpleTest, CopyVector_ExistingVector) {
     
     EXPECT_EQ(dest.size, 3);
     EXPECT_EQ(is_equal_vector(&src, &dest), 1);
-    EXPECT_EQ(get_at_vector(&dest, 0), 10);
-    EXPECT_EQ(get_at_vector(&dest, 1), 20);
-    EXPECT_EQ(get_at_vector(&dest, 2), 30);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&dest, 0, &result), 0);
+    EXPECT_EQ(result, 10);
+    EXPECT_EQ(get_at_vector(&dest, 1, &result), 0);
+    EXPECT_EQ(result, 20);
+    EXPECT_EQ(get_at_vector(&dest, 2, &result), 0);
+    EXPECT_EQ(result, 30);
     
     erase_vector(&src);
     erase_vector(&dest);
 }
+
 
 TEST_F(VectorSimpleTest, CopyVectorNew_CreatesNewVector) {
     Vector src = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -211,13 +262,19 @@ TEST_F(VectorSimpleTest, CopyVectorNew_CreatesNewVector) {
     ASSERT_NE(dest, nullptr);
     EXPECT_EQ(dest->size, 3);
     EXPECT_EQ(is_equal_vector(&src, dest), 1);
-    EXPECT_EQ(get_at_vector(dest, 0), 10);
-    EXPECT_EQ(get_at_vector(dest, 1), 20);
-    EXPECT_EQ(get_at_vector(dest, 2), 30);
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(dest, 0, &result), 0);
+    EXPECT_EQ(result, 10);
+    EXPECT_EQ(get_at_vector(dest, 1, &result), 0);
+    EXPECT_EQ(result, 20);
+    EXPECT_EQ(get_at_vector(dest, 2, &result), 0);
+    EXPECT_EQ(result, 30);
     
     erase_vector(&src);
     delete_vector(dest);
 }
+
 
 TEST_F(VectorSimpleTest, DeleteVector_FreesMemory) {
     Vector *v = (Vector*)malloc(sizeof(Vector));
@@ -226,15 +283,17 @@ TEST_F(VectorSimpleTest, DeleteVector_FreesMemory) {
     push_back_vector(v, 10);
     push_back_vector(v, 20);
     
-    delete_vector(v);  // Не должно вызвать утечку памяти
+    delete_vector(v);
     
-    // Если тест проходит без segfault - всё ОК
     SUCCEED();
 }
 
+
 // ============= ТЕСТЫ ДЛЯ СЛОЖНЫХ ТИПОВ (char*) =============
 
+
 #ifdef VECTOR_TYPE_HARD
+
 
 class VectorHardTest : public ::testing::Test {
 protected:
@@ -242,6 +301,7 @@ protected:
         // Используем функции для строк
     }
 };
+
 
 TEST_F(VectorHardTest, PushBack_Strings) {
     Vector v = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -251,12 +311,18 @@ TEST_F(VectorHardTest, PushBack_Strings) {
     push_back_vector(&v, (char*)"Test");
     
     EXPECT_EQ(v.size, 3);
-    EXPECT_STREQ(get_at_vector(&v, 0), "Hello");
-    EXPECT_STREQ(get_at_vector(&v, 1), "World");
-    EXPECT_STREQ(get_at_vector(&v, 2), "Test");
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_STREQ(result, "Hello");
+    EXPECT_EQ(get_at_vector(&v, 1, &result), 0);
+    EXPECT_STREQ(result, "World");
+    EXPECT_EQ(get_at_vector(&v, 2, &result), 0);
+    EXPECT_STREQ(result, "Test");
     
     erase_vector(&v);
 }
+
 
 TEST_F(VectorHardTest, DeepCopy_IndependentStrings) {
     Vector v = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -264,14 +330,15 @@ TEST_F(VectorHardTest, DeepCopy_IndependentStrings) {
     char original[] = "Original";
     push_back_vector(&v, original);
     
-    // Изменяем оригинал
     original[0] = 'X';
     
-    // Копия не должна измениться
-    EXPECT_STREQ(get_at_vector(&v, 0), "Original");
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_STREQ(result, "Original");
     
     erase_vector(&v);
 }
+
 
 TEST_F(VectorHardTest, DeleteAt_String) {
     Vector v = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -283,11 +350,16 @@ TEST_F(VectorHardTest, DeleteAt_String) {
     delete_at_vector(&v, 1);
     
     EXPECT_EQ(v.size, 2);
-    EXPECT_STREQ(get_at_vector(&v, 0), "First");
-    EXPECT_STREQ(get_at_vector(&v, 1), "Third");
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_STREQ(result, "First");
+    EXPECT_EQ(get_at_vector(&v, 1, &result), 0);
+    EXPECT_STREQ(result, "Third");
     
     erase_vector(&v);
 }
+
 
 TEST_F(VectorHardTest, IsEqualVector_EqualStrings) {
     Vector v1 = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -305,6 +377,7 @@ TEST_F(VectorHardTest, IsEqualVector_EqualStrings) {
     erase_vector(&v2);
 }
 
+
 TEST_F(VectorHardTest, IsEqualVector_DifferentStrings) {
     Vector v1 = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
     Vector v2 = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -318,6 +391,7 @@ TEST_F(VectorHardTest, IsEqualVector_DifferentStrings) {
     erase_vector(&v2);
 }
 
+
 TEST_F(VectorHardTest, CopyVector_Strings) {
     Vector src = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
     Vector dest = create_vector(3, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -329,13 +403,19 @@ TEST_F(VectorHardTest, CopyVector_Strings) {
     copy_vector(&dest, &src);
     
     EXPECT_EQ(dest.size, 3);
-    EXPECT_STREQ(get_at_vector(&dest, 0), "Apple");
-    EXPECT_STREQ(get_at_vector(&dest, 1), "Banana");
-    EXPECT_STREQ(get_at_vector(&dest, 2), "Cherry");
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&dest, 0, &result), 0);
+    EXPECT_STREQ(result, "Apple");
+    EXPECT_EQ(get_at_vector(&dest, 1, &result), 0);
+    EXPECT_STREQ(result, "Banana");
+    EXPECT_EQ(get_at_vector(&dest, 2, &result), 0);
+    EXPECT_STREQ(result, "Cherry");
     
     erase_vector(&src);
     erase_vector(&dest);
 }
+
 
 TEST_F(VectorHardTest, CopyVectorNew_Strings) {
     Vector src = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -347,12 +427,17 @@ TEST_F(VectorHardTest, CopyVectorNew_Strings) {
     
     ASSERT_NE(dest, nullptr);
     EXPECT_EQ(dest->size, 2);
-    EXPECT_STREQ(get_at_vector(dest, 0), "One");
-    EXPECT_STREQ(get_at_vector(dest, 1), "Two");
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(dest, 0, &result), 0);
+    EXPECT_STREQ(result, "One");
+    EXPECT_EQ(get_at_vector(dest, 1, &result), 0);
+    EXPECT_STREQ(result, "Two");
     
     erase_vector(&src);
     delete_vector(dest);
 }
+
 
 TEST_F(VectorHardTest, EmptyString) {
     Vector v = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -360,10 +445,14 @@ TEST_F(VectorHardTest, EmptyString) {
     push_back_vector(&v, (char*)"");
     
     EXPECT_EQ(v.size, 1);
-    EXPECT_STREQ(get_at_vector(&v, 0), "");
+    
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_STREQ(result, "");
     
     erase_vector(&v);
 }
+
 
 TEST_F(VectorHardTest, LongString) {
     Vector v = create_vector(5, is_equal_hard, CopyVoidPtr_hard, DeleteVoidPtr_hard);
@@ -376,34 +465,46 @@ TEST_F(VectorHardTest, LongString) {
     
     push_back_vector(&v, long_str);
     
-    EXPECT_STREQ(get_at_vector(&v, 0), long_str);
+    VECTOR_TYPE result;
+    EXPECT_EQ(get_at_vector(&v, 0, &result), 0);
+    EXPECT_STREQ(result, long_str);
     
     erase_vector(&v);
 }
+
 
 #endif // VECTOR_TYPE_HARD
 
+
 // ============= ГРАНИЧНЫЕ СЛУЧАИ =============
 
-TEST(VectorEdgeCases, GetAt_InvalidIndex_ShouldExit) {
+
+TEST(VectorEdgeCases, GetAt_InvalidIndex) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
     push_back_vector(&v, 10);
     
-    // Этот тест проверяет, что программа завершится с ошибкой
-    // В реальном коде вы можете использовать EXPECT_DEATH (требует fork)
-    // EXPECT_DEATH(get_at_vector(&v, 10), "error: invalid index");
+    VECTOR_TYPE result;
+    EXPECT_NE(get_at_vector(&v, 10, &result), 0);
     
     erase_vector(&v);
 }
 
-TEST(VectorEdgeCases, DeleteAt_InvalidIndex_ShouldExit) {
+
+TEST(VectorEdgeCases, GetAt_NullVector) {
+    VECTOR_TYPE result;
+    EXPECT_NE(get_at_vector(nullptr, 0, &result), 0);
+}
+
+
+TEST(VectorEdgeCases, GetAt_NullResult) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
     push_back_vector(&v, 10);
     
-    // EXPECT_DEATH(delete_at_vector(&v, 10), "error: invalid index");
+    EXPECT_NE(get_at_vector(&v, 0, nullptr), 0);
     
     erase_vector(&v);
 }
+
 
 TEST(VectorEdgeCases, IsEqualVector_NullPointers) {
     Vector v = create_vector(5, is_equal_simple, CopyVoidPtr_simple, DeleteVoidPtr_simple);
@@ -415,10 +516,12 @@ TEST(VectorEdgeCases, IsEqualVector_NullPointers) {
     erase_vector(&v);
 }
 
+
 TEST(VectorEdgeCases, CopyVectorNew_NullSource) {
     Vector *result = copy_vector_new(nullptr);
     EXPECT_EQ(result, nullptr);
 }
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

@@ -12,6 +12,7 @@
 #endif
 
 
+
 typedef struct {
     VECTOR_TYPE *data;
     size_t size;
@@ -37,7 +38,7 @@ Vector *copy_vector_new(const Vector *src);
 int is_equal_vector(const Vector *v1, const Vector *v2);
 void push_back_vector(Vector *v, VECTOR_TYPE value);
 void delete_at_vector(Vector *v, size_t index);
-VECTOR_TYPE get_at_vector(const Vector *v, size_t index);
+int get_at_vector(const Vector *v, size_t index, VECTOR_TYPE *result);
 void delete_vector(Vector *v);
 
 #endif

@@ -70,8 +70,8 @@ Vector create_vector(size_t initial_capacity, int (*is_equal_func)(VECTOR_TYPE, 
     if (initial_capacity > 0){
         res.data = (VECTOR_TYPE *)malloc(sizeof(VECTOR_TYPE)* initial_capacity);
         if (!res.data){
-            fprintf(stderr, "error: can`t allocate memory\n");
-            exit(EXIT_FAILURE); 
+            res.capacity = 0;
+            res.data = NULL;
         }
     } else {
         res.data = NULL;
@@ -93,8 +93,7 @@ void erase_vector(Vector *v){
 
 void copy_vector(Vector *dest, const Vector *src){
     if (!dest || !src) {
-        fprintf(stderr, "error: NULL pointer\n");
-        exit(EXIT_FAILURE);
+        return;
     }
     for(size_t i = 0; i < dest->size; i++){
         dest->DeleteVoidPtr(dest->data[i]);
@@ -105,8 +104,7 @@ void copy_vector(Vector *dest, const Vector *src){
     if (dest->capacity != src->capacity){
         VECTOR_TYPE * smp = (VECTOR_TYPE *)realloc(dest->data, sizeof(VECTOR_TYPE) * src->capacity);
         if (!smp){
-            fprintf(stderr, "error: can`t allocate memory\n");
-            exit(EXIT_FAILURE); 
+            return;
         }
         dest->data = smp;
         dest->capacity = src->capacity;
@@ -131,8 +129,7 @@ Vector *copy_vector_new(const Vector *src){
 
 void push_back_vector(Vector *v, VECTOR_TYPE value){
     if (!v) {
-        fprintf(stderr, "error: NULL pointer\n");
-        exit(EXIT_FAILURE); 
+        return;
     }
     if (v->size< v->capacity) {
         v->data[v->size++] =v->CopyVoidPtr(value);
@@ -141,8 +138,7 @@ void push_back_vector(Vector *v, VECTOR_TYPE value){
         else v->capacity++;
         VECTOR_TYPE * smp = (VECTOR_TYPE *)realloc(v->data, sizeof(VECTOR_TYPE)*v->capacity);
         if (!smp){
-            fprintf(stderr, "error: can`t allocate memory\n");
-            exit(EXIT_FAILURE); 
+            return;
         }
         v->data = smp;
         v->data[v->size++] = v->CopyVoidPtr(value);
@@ -151,12 +147,10 @@ void push_back_vector(Vector *v, VECTOR_TYPE value){
 
 void delete_at_vector(Vector *v, size_t index){
     if (!v) {
-        fprintf(stderr, "error: NULL pointer\n");
-        exit(EXIT_FAILURE); 
+        return;
     }
     if (index >= v->size){
-        fprintf(stderr, "error: invalid index\n");
-        exit(EXIT_FAILURE); 
+        return; 
     }
     v->DeleteVoidPtr(v->data[index]);
     for (size_t i = index; i<v->size - 1; i++){
@@ -165,17 +159,15 @@ void delete_at_vector(Vector *v, size_t index){
     v->size--;
 }
 
-VECTOR_TYPE get_at_vector(const Vector *v, size_t index){
-    if (!v) {
-        fprintf(stderr, "error: NULL pointer\n");
-        exit(EXIT_FAILURE); 
+int get_at_vector(const Vector *v, size_t index, VECTOR_TYPE *result){
+    if (!v || !result) {
+        return -1; 
     }
     if (index >= v->size){
-        fprintf(stderr, "error: invalid index\n");
-        exit(EXIT_FAILURE); 
+        return -1; 
     }
-    VECTOR_TYPE res = v->data[index];
-    return res;
+    *result = v->data[index];
+    return 0;
 }
 
 void delete_vector(Vector *v){

@@ -1,0 +1,6 @@
+/home/bogdanoff/study/FALGO/lab3/task3started/build/CMakeFiles/lab3_task3_lib.dir
+/home/bogdanoff/study/FALGO/lab3/task3started/build/CMakeFiles/lab3_task3_exe.dir
+/home/bogdanoff/study/FALGO/lab3/task3started/build/CMakeFiles/tests.dir
+/home/bogdanoff/study/FALGO/lab3/task3started/build/CMakeFiles/test.dir
+/home/bogdanoff/study/FALGO/lab3/task3started/build/CMakeFiles/edit_cache.dir
+/home/bogdanoff/study/FALGO/lab3/task3started/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,6 @@
+/home/bogdanoff/study/FALGO/lab2/task4added/build/CMakeFiles/lab2_task4_lib.dir
+/home/bogdanoff/study/FALGO/lab2/task4added/build/CMakeFiles/lab2_task4_exe.dir
+/home/bogdanoff/study/FALGO/lab2/task4added/build/CMakeFiles/tests.dir
+/home/bogdanoff/study/FALGO/lab2/task4added/build/CMakeFiles/test.dir
+/home/bogdanoff/study/FALGO/lab2/task4added/build/CMakeFiles/edit_cache.dir
+/home/bogdanoff/study/FALGO/lab2/task4added/build/CMakeFiles/rebuild_cache.dir
