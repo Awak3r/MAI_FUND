@@ -14,8 +14,7 @@ VECTOR_TYPE CopyVoidPtr_hard(VECTOR_TYPE copy){
     }
     VECTOR_TYPE res = (VECTOR_TYPE)malloc(len + 1);
     if (!res) {
-        fprintf(stderr, "error: can`t allocate memory\n");
-        exit(EXIT_FAILURE); 
+        return NULL; 
     }
     for(size_t i = 0; i < len; i++){
         res[i] = copy[i];

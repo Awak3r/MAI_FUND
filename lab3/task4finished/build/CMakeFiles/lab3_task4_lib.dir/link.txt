@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblab3_task4_lib.a CMakeFiles/lab3_task4_lib.dir/src/mail_func.c.o CMakeFiles/lab3_task4_lib.dir/src/post_office_func.c.o CMakeFiles/lab3_task4_lib.dir/src/postal_system.c.o
+/usr/bin/ranlib liblab3_task4_lib.a
